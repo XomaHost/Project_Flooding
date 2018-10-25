@@ -108,15 +108,9 @@ def square(x_left, x_right, spline):
         return integrate.quad(linear, a=x_left, b=x_right, args=(a,b))[0] -\
                integrate.quad(spline, a=x_left, b=x_right)[0]
 
-def balance(area):
-    while abs(spline(area.x_filling_right) - spline(area.x_filling_left)) > abs(epsilon)/2:
-        if spline(area.x_filling_right) > spline(area.x_filling_left):
-            area.x_filling_right -= epsilon/4
-        else:
-            area.x_filling_right += epsilon/4
 
 plt.show(block=False)
-v = 0.7
+v = 0.5
 dx_max = np.empty(0)
 for i in range(0, np.size(local_max)-1, 1):
     dx_max = np.append(dx_max, local_max[i+1] - local_max[i])
@@ -192,8 +186,6 @@ while not check(area):
                     area[i].S_target -= (area[i].S_target - area[i].S_fill)
                     print('Overflow to the right')
 
-            #balance(area[i])
-            #time.sleep(0.1)
             area[i].S_fill = square(x_left, x_right, spline)
             if abs(area[i].S_fill - area[i].S_target) < precision_S or area[i].filled:
                 area[i].x_filling_right = x_right
