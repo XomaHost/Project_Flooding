@@ -1,11 +1,15 @@
 import sys
-
 from scipy.optimize import minimize
 from scipy.interpolate import Rbf, CubicSpline
 from scipy import integrate
 from matplotlib import pyplot as plt
 import numpy as np
+import time
+a = time.time()
+time.sleep(1)
+print(f'{(time.time()-a)}')
 
+"""
 data_in_Y = np.random.rand(10)*3
 #data_in_Y = np.array([1.14, 2.57, 1.80, 0.02, 0.28, 0.24, 1.23, 0.91, 0.58, 1.41])
 #data_in_Y = np.array([0.17, 2.1, 2.62, 0.43, 0.72, 2.25, 1.02, 2.72, 1.53, 2.97])
@@ -44,7 +48,7 @@ plt.plot(dx, spline(dx), color='black', linewidth=1, linestyle=':')
 spline = CubicSpline(data_in_X, data_in_Y)
 plt.plot(dx, spline(dx), color='red', linewidth=1, linestyle='--')
 
-plt.show()
+plt.show()"""
 """
 a = ['Mary', 'had', 'a', 'little', 'lamb']
 i = 0
