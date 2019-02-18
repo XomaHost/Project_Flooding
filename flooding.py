@@ -3,7 +3,7 @@ from matplotlib import pyplot
 from scipy import integrate
 
 
-def standart_flooding(extreme, interpolation_function, v = 1):
+def step_by_step_flooding(extreme, interpolation_function, v = 1):
     spline = interpolation_function[0]
     local_min = extreme[0]
     local_max = extreme[1]
@@ -49,8 +49,8 @@ def standart_flooding(extreme, interpolation_function, v = 1):
     for i in range(0, numpy.size(local_max)-1, 1):
         dx_max = numpy.append(dx_max, local_max[i+1] - local_max[i])
     S_target = dx_max * v
-    epsilon = 0.02
-    precision_S = 1 #TODO: check dependencies precision_S with all x/y size.
+    epsilon = 0.01
+    precision_S = abs(interpolation_function[0].xi[0][0] - interpolation_function[0].xi[0][-1])/100
     area = numpy.array([Area(local_min[i], local_max[i], local_max[i+1], S_target[i]) for i in range(numpy.size(local_min))])
     i = 0
     while not check(area):
@@ -114,7 +114,7 @@ def standart_flooding(extreme, interpolation_function, v = 1):
                 area[i].x_filling_right = x_right
                 area[i].x_filling_left = x_left
                 area[i].filled = True
-                pyplot.plot([area[i].x_filling_left, area[i].x_filling_right],[spline(area[i].x_filling_left),spline(area[i].x_filling_right)], 'b', linewidth=2, alpha=0.5)
+                pyplot.plot([area[i].x_filling_left, area[i].x_filling_right],[spline(area[i].x_filling_left),spline(area[i].x_filling_right)], 'b', linewidth=1)
                 pyplot.draw()
                 i += 1
                 break
@@ -126,7 +126,7 @@ def standart_flooding(extreme, interpolation_function, v = 1):
             elif abs(area[i].S_fill - area[i].S_target) >= precision_S and area[i].S_fill < area[i].S_target:
                 area[i].x_filling_right = x_right
                 area[i].x_filling_left = x_left
-                pyplot.plot([area[i].x_filling_left, area[i].x_filling_right],[spline(area[i].x_filling_left),spline(area[i].x_filling_right)], 'b', linewidth=2, alpha=0.5)
+                pyplot.plot([area[i].x_filling_left, area[i].x_filling_right],[spline(area[i].x_filling_left),spline(area[i].x_filling_right)], 'b', linewidth=1, alpha=0.3)
                 pyplot.draw()
                 j += 1
                 continue
