@@ -36,7 +36,20 @@ pyplot.plot(numpy.arange(data_in_x[0], data_in_x[-1], 0.01),
 pyplot.plot(extreme[0], interpolation_function[0](extreme[0]), 'xg')
 pyplot.plot(extreme[1], interpolation_function[0](extreme[1]), 'xr')
 
-flooding.step_by_step_flooding(extreme, interpolation_function, v)
+areas = flooding.step_by_step_flooding(extreme, interpolation_function, v)
+
+for i in areas:
+    pyplot.plot([i.x_filling_left, i.x_filling_right],
+                [interpolation_function[0](i.x_filling_left),
+                 interpolation_function[0](i.x_filling_right)], 'b', linewidth=1)
+
+    y2 = numpy.empty(0)
+    for point in numpy.arange(i.x_filling_left, i.x_filling_right, 0.01):
+        y2 = numpy.append(y2, interpolation_function[0](i.x_filling_left))
+    pyplot.fill_between(numpy.arange(i.x_filling_left, i.x_filling_right, 0.01),
+                        interpolation_function[0](numpy.arange(i.x_filling_left, i.x_filling_right, 0.01)),
+                        y2,
+                        color=(0, 0, 1), alpha=0.4)
 
 print(f'Your code like shit did the task in: {(int(round(time.time() * 1000)) - start_time)/1000:.2f} seconds')
 pyplot.show()
