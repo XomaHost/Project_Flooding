@@ -1,17 +1,18 @@
 import numpy
+from matplotlib import pyplot
+import time
+
 import interpolation
 import optimization
 import flooding
-import time
-from matplotlib import pyplot
 
 start_time = int(round(time.time() * 1000))
 
 coef = 1
 v = 0.1
-#data_in_y = numpy.random.rand(10*coef)*coef*2
+data_in_y = numpy.random.rand(10*coef)*coef*2
 #data_in_y = numpy.array([0.1, 0.2, 0.3, 0.4, 0.5, 0.45, 0.37, 0.3, 0.2, 0.1])
-data_in_y = numpy.array([1.1269689862619268, 1.5431244584800168, 0.8370225833975262, 0.5173791781536476, 1.1110267069859034, 1.0987147224051177, 0.07785358093265105, 0.38396909784135635, 1.8503065187093963, 1.4974254812592123])
+#data_in_y = numpy.array([1.1269689862619268, 1.5431244584800168, 0.8370225833975262, 0.5173791781536476, 1.1110267069859034, 1.0987147224051177, 0.07785358093265105, 0.38396909784135635, 1.8503065187093963, 1.4974254812592123])
 
 data_in_x = numpy.arange(0, numpy.size(data_in_y) * coef, 1 * coef)
 
@@ -50,7 +51,7 @@ for i in areas:
                         interpolation_function[0](numpy.arange(i.x_filling_left, i.x_filling_right, 0.01)),
                         y2,
                         color=(0, 0, 1), alpha=0.4)
-
+pyplot.ylim(pyplot.xlim())
 print(f'Your code like shit did the task in: {(int(round(time.time() * 1000)) - start_time)/1000:.2f} seconds')
 pyplot.show()
 print(f'end.')
